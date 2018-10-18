@@ -32,6 +32,18 @@ app.get('/todos', (req, res) =>{
         })
 })
 
+app.get('/todos/:id', (req, res) => {
+    Todo
+        .findById(req.params.id)    
+        .then(result => {
+            if(!result){
+                return res.status(400).send({Error: 'Unable to get Todo'})
+            }
+            res.send(result);
+        })
+        .catch(err => res.status(500).send(err));
+});
+
 app.listen('3000', () => console.log('Started on port 3000!'));
 
 module.exports = {app};
